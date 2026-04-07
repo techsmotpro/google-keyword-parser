@@ -4,7 +4,10 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-API_KEY = "FUCK IT IM NOT DUMB"  # SerpAPI key
+import os
+API_KEY = os.getenv('SERPAPI_KEY')
+if not API_KEY:
+    raise RuntimeError("SERPAPI_KEY environment variable is required")
 
 
 def check_ranking(keyword, domain):
