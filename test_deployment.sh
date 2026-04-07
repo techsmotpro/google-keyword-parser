@@ -7,7 +7,7 @@ echo
 
 # Check if all required files exist
 echo "Checking required files:"
-for file in app.py requirements.txt vercel.json .vercelignore .env.example .gitignore templates/index.html DEPLOYMENT.md; do
+for file in app.py requirements.txt vercel.json .vercelignore .env.example .gitignore templates/index.html README.md; do
     if [ -f "$file" ] || [ -d "$file" ]; then
         echo "✅ $file"
     else
