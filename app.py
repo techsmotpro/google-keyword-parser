@@ -14,8 +14,12 @@ CORS(app)
 
 # Get API key from environment variable
 API_KEY = os.getenv('SERPAPI_KEY')
+# Handle case where SERPAPI_KEY is not set
 if not API_KEY:
-    raise RuntimeError("SERPAPI_KEY environment variable is required")
+    # Log error message instead of raising exception to avoid crashing the app
+    import logging
+    logging.error("SERPAPI_KEY environment variable is not set")
+    API_KEY = None
 
 @app.route('/')
 def index():
@@ -164,6 +168,13 @@ def check_ranking():
         data = request.json
         keywords = data['keywords']
         domain = data['domain']
+        
+        # Check if API key is available
+        if not API_KEY:
+            return jsonify({
+                'success': False,
+                'error': 'SERPAPI_KEY environment variable is not configured. Please set it in the Vercel dashboard.'
+            }), 500
         
         results = []
         
